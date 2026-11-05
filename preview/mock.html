@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" data-dsh-composer-gradient>
+<head>
+  <meta charset="utf-8" />
+  <title>composer gradient preview</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #141018;
+    }
+    .stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 26px;
+    }
+    .stage.dark { background: #141018; }
+    .stage.light { background: #efeaf3; }
+
+    .card {
+      position: relative;
+      width: 600px;
+      min-height: 104px;
+      border-radius: 22px;
+      padding: 16px 18px 12px;
+      background: #211b2b;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .light .card { background: #ffffff; }
+
+    .line { height: 10px; border-radius: 5px; background: rgba(255, 255, 255, 0.22); }
+    .light .line { background: rgba(20, 10, 30, 0.16); }
+    .line.w1 { width: 62%; }
+    .line.w2 { width: 38%; }
+
+    .row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+    .pill { width: 26px; height: 26px; border-radius: 8px; background: rgba(255, 255, 255, 0.16); }
+    .light .pill { background: rgba(20, 10, 30, 0.10); }
+    .grow { flex: 1; }
+    .send { width: 34px; height: 30px; border-radius: 10px; background: #6f8cff; }
+  </style>
+</head>
+<body>
+  <div class="stage dark">
+    <div class="card" data-composer-card>
+      <div class="line w1"></div>
+      <div class="line w2"></div>
+      <div class="row">
+        <div class="pill"></div>
+        <div class="grow"></div>
+        <div class="send"></div>
+      </div>
+    </div>
+  </div>
+  <div class="stage light">
+    <div class="card" data-composer-card>
+      <div class="line w1"></div>
+      <div class="line w2"></div>
+      <div class="row">
+        <div class="pill"></div>
+        <div class="grow"></div>
+        <div class="send"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__ModuleLoader__ = { load(def) { window.__mod = def.factory(() => ({})); } };
+  </script>
+  <script src="../lib/client.js"></script>
+  <script>
+    const style = document.createElement('style');
+    style.textContent = window.__mod.CSS;
+    document.head.append(style);
+
+    const t = Number(new URLSearchParams(location.search).get('t') || 0);
+    const freeze = document.createElement('style');
+    freeze.textContent = `
+      [data-composer-card] { animation-delay: -${t}s !important; animation-play-state: paused !important; }
+      [data-composer-card]::before { animation-delay: -${t}s !important; animation-play-state: paused !important; }
+    `;
+    document.head.append(freeze);
+  </script>
+</body>
+</html>

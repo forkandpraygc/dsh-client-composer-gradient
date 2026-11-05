@@ -1,0 +1,8 @@
+node_modules/
+*.log
+preview/frames/
+preview/*.json
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
